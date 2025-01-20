@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 
 const carouselSlides = [
@@ -59,46 +59,17 @@ const carouselSlides = [
   }
 ];
 
-const Home = () => {
+const Home = React.memo(() => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Use a ref to track mounted state
-  const [isMounted, setIsMounted] = React.useState(true);
-
-  // Memoize the slide change function
-  const changeSlide = React.useCallback(() => {
-    if (!isMounted) return;
-    
-    console.log('Changing slide', currentSlide);
-    setCurrentSlide((prevSlide) => {
-      const nextSlide = (prevSlide + 1) % carouselSlides.length;
-      console.log('Next slide', nextSlide);
-      return nextSlide;
-    });
-  }, [isMounted, currentSlide]);
-
-  // Set up interval for slide changes
   useEffect(() => {
-    // Only set up interval if component is mounted
-    if (!isMounted) return;
+    const intervalId = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+    }, 3000);
 
-    const intervalId = setInterval(changeSlide, 3000);
-    
-    // Cleanup function
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [changeSlide, isMounted]);
-
-  // Track mounted state
-  useEffect(() => {
-    setIsMounted(true);
-    return () => {
-      setIsMounted(false);
-    };
+    return () => clearInterval(intervalId);
   }, []);
 
-  // Manual dot click handler
   const handleDotClick = (index) => {
     setCurrentSlide(index);
   };
@@ -113,7 +84,13 @@ const Home = () => {
             className={`carousel-slide-full ${index === currentSlide ? 'active' : ''}`}
             style={{ 
               display: index === currentSlide ? 'block' : 'none',
-              opacity: index === currentSlide ? 1 : 0
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              opacity: index === currentSlide ? 1 : 0,
+              transition: 'opacity 0.5s ease-in-out'
             }}
           >
             <div className="slide-content-full">
@@ -151,6 +128,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Home;
