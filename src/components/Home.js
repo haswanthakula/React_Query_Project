@@ -59,25 +59,53 @@ const carouselSlides = [
   }
 ];
 
-const Home = React.memo(() => {
+const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const changeSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+  // Use a ref to track mounted state
+  const [isMounted, setIsMounted] = React.useState(true);
+
+  // Memoize the slide change function
+  const changeSlide = React.useCallback(() => {
+    if (!isMounted) return;
+    
+    console.log('Changing slide', currentSlide);
+    setCurrentSlide((prevSlide) => {
+      const nextSlide = (prevSlide + 1) % carouselSlides.length;
+      console.log('Next slide', nextSlide);
+      return nextSlide;
+    });
+  }, [isMounted, currentSlide]);
+
+  // Set up interval for slide changes
+  useEffect(() => {
+    // Only set up interval if component is mounted
+    if (!isMounted) return;
+
+    const intervalId = setInterval(changeSlide, 3000);
+    
+    // Cleanup function
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [changeSlide, isMounted]);
+
+  // Track mounted state
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setIsMounted(false);
+    };
   }, []);
 
-  useEffect(() => {
-    const intervalId = setInterval(changeSlide, 3000);
-    return () => clearInterval(intervalId);
-  }, [changeSlide]);
-
+  // Manual dot click handler
   const handleDotClick = (index) => {
     setCurrentSlide(index);
   };
 
   return (
     <div className="home-container-full">
-      <h1 className="page-title">React Query Project</h1>
+      <h1 className="page-title">React Project</h1>
       <div className="carousel-container-full">
         {carouselSlides.map((slide, index) => (
           <div 
@@ -123,6 +151,6 @@ const Home = React.memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default Home;
