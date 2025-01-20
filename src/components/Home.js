@@ -3,11 +3,11 @@ import './Home.css';
 
 const carouselSlides = [
   {
-    title: "Tanstack Query Page",
-    description: "Explore Rick and Morty Characters using React Query's powerful data fetching capabilities",
+    title: "Characters Page",
+    description: "Explore Rick and Morty Characters",
     features: [
       "Fetches characters from Rick and Morty API",
-      "Automatic caching and background updates",
+      "Dynamic data loading",
       "Responsive grid layout",
       "Detailed character information"
     ],
@@ -19,31 +19,30 @@ const carouselSlides = [
     features: [
       "Displays memes from Imgflip API",
       "Manual state management",
-      "Demonstrates classic data fetching approach",
-      "Simple and straightforward implementation"
+      "Simple data fetching approach",
+      "Basic implementation"
     ],
     image: "/images/traditional-preview.png"
   },
   {
     title: "Mutation Page",
-    description: "Interactive post creation and deletion using React Query Mutations",
+    description: "Interactive post creation and deletion",
     features: [
       "Add and delete posts dynamically",
-      "Real-time updates with JSON Server",
-      "Demonstrates mutation capabilities",
-      "Instant query invalidation and refetching"
+      "Real-time updates",
+      "Interactive data management",
+      "Instant updates"
     ],
     image: "/images/mutation-preview.png"
   },
   {
-    title: "React Query Benefits",
-    description: "Why React Query is a game-changer for data management",
+    title: "Project Features",
+    description: "Exploring different data fetching techniques",
     features: [
-      "Automatic caching",
-      "Background updates",
-      "Simplified error handling",
-      "Reduced boilerplate code",
-      "Improved performance"
+      "Multiple data fetching methods",
+      "Dynamic content loading",
+      "Interactive interfaces",
+      "Responsive design"
     ],
     image: "/images/react-query-benefits.png"
   },
