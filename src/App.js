@@ -10,6 +10,7 @@ import Mutation from './components/Mutation';
 const queryClient = new QueryClient();
 
 function App() {
+  console.log('Current route:', window.location.hash);
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
@@ -19,7 +20,7 @@ function App() {
           <Route path="/tanstack" element={<Tanstack />} />
           <Route path="/traditional" element={<Traditional />} />
           <Route path="/mutation" element={<Mutation />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </QueryClientProvider>
