@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './Home.css';
 
 const carouselSlides = [
@@ -59,8 +59,17 @@ const carouselSlides = [
   }
 ];
 
-const Home = () => {
+const Home = React.memo(() => {
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const changeSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(changeSlide, 3000);
+    return () => clearInterval(intervalId);
+  }, [changeSlide]);
 
   const handleDotClick = (index) => {
     setCurrentSlide(index);
@@ -74,6 +83,10 @@ const Home = () => {
           <div 
             key={index} 
             className={`carousel-slide-full ${index === currentSlide ? 'active' : ''}`}
+            style={{ 
+              display: index === currentSlide ? 'block' : 'none',
+              opacity: index === currentSlide ? 1 : 0
+            }}
           >
             <div className="slide-content-full">
               <div className="slide-overlay"></div>
@@ -110,6 +123,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Home;
