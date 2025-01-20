@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Home.css';
 
 const carouselSlides = [
@@ -61,14 +61,6 @@ const carouselSlides = [
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    const slideInterval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
-    }, 5000);
-
-    return () => clearInterval(slideInterval);
-  }, []);
 
   const handleDotClick = (index) => {
     setCurrentSlide(index);
