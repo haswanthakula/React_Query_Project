@@ -21,25 +21,9 @@
   margin: 0 15px;
   font-size: 1rem;
   font-weight: 500;
-  transition: color 0.3s ease;
-  position: relative;
+  transition: color 0.2s ease;
 }
 
 .navbar-item:hover {
   color: #007bff;
-}
-
-.navbar-item.active {
-  color: #007bff;
-  font-weight: bold;
-}
-
-.navbar-item.active::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #007bff;
 }
